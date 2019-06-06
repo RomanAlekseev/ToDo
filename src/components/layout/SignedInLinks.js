@@ -4,6 +4,8 @@ import { connect } from "react-redux";
 import { signOut } from "../store/actions/authActions";
 
 const SignedInLinks = props => {
+  const { mail } = props;
+  console.log(mail);
   return (
     <ul className="right">
       <li>
@@ -13,8 +15,8 @@ const SignedInLinks = props => {
         <a onClick={props.signOut}>Log Out</a>
       </li>
       <li>
-        <NavLink to="/" className="btn btn-floating pink lighten-1">
-          NN
+        <NavLink to="/" className="btn pink lighten-1">
+          {mail}
         </NavLink>
       </li>
     </ul>
@@ -27,7 +29,13 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
+const mapStateToProps = state => {
+  return {
+    mail: state.firebase.auth.email
+  };
+};
+
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(SignedInLinks);
